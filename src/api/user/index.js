@@ -3,20 +3,21 @@ import * as firebase from 'firebase';
 import { firestore } from '../../utils/firebase';
 
 
-export const createUser = (email, password, name, city, area) => {
+export const createUser = (email, password, firstName, lastName, receivePromotionalEmails, DOB) => {
   return firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(result => {
       return firestore.collection("users")
         .doc(result.user.uid)
         .set({
-          name: name,
+          firstName: firstName,
+          lastName: lastName,
           admin: false,
           email: email,
           joinDate: new Date(),
           purchases: [],
-          city: city,
           userType: 'user',
-          area
+          receivePromotionalEmails,
+          DOB
         })
         .then(() => result.user.uid)
         .catch(err => console.log('err ', err));

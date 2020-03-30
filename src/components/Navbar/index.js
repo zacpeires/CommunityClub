@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
+import { MidSizeTitleText } from '../Typography';
 
 const NavbarContainer = styled.nav`
   height: 70px;
@@ -26,30 +27,23 @@ const CentredHorizontalContainer = styled.div`
   align-items: center;
 `;
 
-const NavbarTextPrimary = styled.p`
-  margin: 0 20px;
-  color: #484848;
-  font-size: 15px;
-  font-weight: bolder;
-`;
-
-const Navbar = () => {
+const Navbar = ({setShowSignupWidget, showSignupWidget}) => {
   return (
     <NavbarContainer>
       <CentredHorizontalContainer></CentredHorizontalContainer>
       <CentredHorizontalContainer>
-          <NavbarTextPrimary>
+          <MidSizeTitleText>
               Register a business
-          </NavbarTextPrimary>
+          </MidSizeTitleText>
           <Link to="/sign-up">
-          <NavbarTextPrimary>
+          <MidSizeTitleText onClick={() => setShowSignupWidget(!showSignupWidget)}>
               Sign up
-          </NavbarTextPrimary>
+          </MidSizeTitleText>
           </Link>
           <Link to="/log-in">
-          <NavbarTextPrimary>
+          <MidSizeTitleText>
               Log in
-          </NavbarTextPrimary>
+          </MidSizeTitleText>
           </Link>
       </CentredHorizontalContainer>
     </NavbarContainer>
