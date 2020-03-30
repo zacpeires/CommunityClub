@@ -15,9 +15,13 @@ const TickIconContainer = styled.div`
     justify-content: center;
 `
 
-const CloseIcon = ({setShowSignupWidget, showSignupWidget}) => {
+const CloseIcon = ({setShowSignupWidget, showSignupWidget, showLoginWidget, setShowLoginWidget, login}) => {
   return (
-    <CloseIconContainer onClick={() => setShowSignupWidget(!showSignupWidget)}> 
+    <CloseIconContainer onClick={() => 
+    { login ? setShowLoginWidget(!showLoginWidget) : setShowSignupWidget(!showSignupWidget)}
+    
+    }
+    > 
       <svg
         aria-hidden="true"
         role="presentation"

@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { LoginWidget } from '../components/Form'
+import { loginUser } from '../api/user'
 
-const LoginPageContainer = styled.div``;
+export default ({setShowLoginWidget, showLoginWidget}) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("")
 
-export default () => {
-  return <LoginPageContainer></LoginPageContainer>;
+  const loginExistingUser = (event) => {
+    event.preventDefault();
+
+    loginUser(email, password)
+    setShowLoginWidget(false)
+  }
+
+  return (
+    <LoginWidget loginExistingUser={loginExistingUser} setEmail={setEmail} setPassword={setPassword} email={email} password={password} setShowLoginWidget={setShowLoginWidget} showLoginWidget={showLoginWidget} />
+  )
 };

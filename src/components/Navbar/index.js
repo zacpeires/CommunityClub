@@ -27,7 +27,7 @@ const CentredHorizontalContainer = styled.div`
   align-items: center;
 `;
 
-const Navbar = ({setShowSignupWidget, showSignupWidget}) => {
+const Navbar = ({setShowSignupWidget, showSignupWidget, showLoginWidget, setShowLoginWidget}) => {
   return (
     <NavbarContainer>
       <CentredHorizontalContainer></CentredHorizontalContainer>
@@ -41,7 +41,7 @@ const Navbar = ({setShowSignupWidget, showSignupWidget}) => {
           </MidSizeTitleText>
           </Link>
           <Link to="/log-in">
-          <MidSizeTitleText>
+          <MidSizeTitleText onClick={() => setShowLoginWidget(!showLoginWidget)}>
               Log in
           </MidSizeTitleText>
           </Link>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { Link } from 'react-router-dom';
 import CloseIcon, { TickIcon } from "../Icon";
 import { MidSizeTitleText } from "../Typography";
 
@@ -32,8 +33,17 @@ const FormContainer = styled.div`
         display: flex;
         opacity: 1;
           `;
+    } else if (props.showLoginWidget) {
+      return `
+      display: flex;
+      opacity: 1;
+      `
     }
   }}
+  a {
+    color: black;
+    margin-bottom: 24px;
+  }
 `;
 
 const Widget = styled.div`
@@ -152,6 +162,7 @@ const FullSizeButton = styled.button`
   font-size: 16px;
   font-weight: bolder;
   width: 100%;
+  cursor: pointer;
   border: unset;
   background: linear-gradient(
     to right,
@@ -204,12 +215,33 @@ firstName, setFirstName, lastName, setLastName, DOB, setDOB, email, setEmail, pa
               of Service, Payments Terms of Service, Privacy Policy, and
               Nondiscrimination Policy.
             </SmallGreyText>
-            <FullSizeButton type="submit">Agree and continue</FullSizeButton>
+            <FullSizeButton disabled={firstName.length && lastName.length && DOB.length && email.length && password.length && receivePromotionalEmails.length ? false : true}  type="submit">Agree and continue</FullSizeButton>
           </form>
         </PrimaryBodyContainer>
       </Widget>
     </FormContainer>
   );
 };
+
+export const LoginWidget = ({loginExistingUser, email, password, setEmail, setPassword, setShowLoginWidget, showLoginWidget }) => {
+  return (
+    <FormContainer showLoginWidget={showLoginWidget}>
+ <DarkBackground/>
+      <Widget>
+        <TitleAndCloseIconContainer>
+          <CloseIcon login setShowLoginWidget={setShowLoginWidget} showLoginWidget={showLoginWidget}/>
+          <MidSizeTitleText darker>Log in</MidSizeTitleText>
+        </TitleAndCloseIconContainer>
+        <PrimaryBodyContainer>
+        <form onSubmit={((event) => loginExistingUser(event))}>
+            <FormInput top placeholder="Email" name="email" value={email} onChange={(event) => setEmail(event.target.value)} />
+            <FormInput bottom placeholder="Password" name="password" value={password} type="password" onChange={(event) => setPassword(event.target.value)}/>
+            <FullSizeButton disabled={email.length && password.length ? false : true} type="submit">Log in</FullSizeButton>
+        </form>
+        </PrimaryBodyContainer>
+        </Widget>
+    </FormContainer>
+  )
+}
 
 export default SignupWidget;
